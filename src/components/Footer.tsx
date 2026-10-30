@@ -13,44 +13,10 @@ export const Footer: React.FC = () => {
               <span className="text-base font-bold text-white tracking-tight">ATMOS</span>
             </div>
             <p className="text-xs text-slate-400 max-w-sm">
-              Global real-time meteorology, 24-hour predictive modeling, and air quality indices powered by open science.
+              A clear, calm view of the weather around you, with forecasts and daily conditions.
             </p>
           </div>
 
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-slate-400 font-medium">
-            <a
-              href="https://open-meteo.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-cyan-400 transition-colors"
-            >
-              Open-Meteo Weather API
-            </a>
-            <a
-              href="https://open-meteo.com/en/docs/geocoding-api"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-cyan-400 transition-colors"
-            >
-              Geocoding API
-            </a>
-            <a
-              href="https://www.rainviewer.com/api.html"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-cyan-400 transition-colors"
-            >
-              RainViewer Radar
-            </a>
-            <a
-              href="https://www.openstreetmap.org/copyright"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-cyan-400 transition-colors"
-            >
-              OpenStreetMap
-            </a>
-          </div>
         </div>
 
         <div className="pt-4 border-t border-slate-900 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-slate-400">
