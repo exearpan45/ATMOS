@@ -375,6 +375,9 @@ export default function App() {
               </button>
             ))}
           </div>
+          <p className="text-center text-[10px] text-slate-500">
+            Weather data by <a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-cyan-400">Open-Meteo</a>
+          </p>
         </section>
 
         {/* Loading Skeleton */}
@@ -567,6 +570,15 @@ export default function App() {
           <Calendar className="w-4 h-4 mb-0.5" />
           <span className="text-[10px]">7-Day</span>
         </button><button
+          onClick={() => setCurrentTab('sunmoon')}
+          className={`flex flex-col items-center justify-center py-1 px-2 rounded-lg min-w-[56px] min-h-[44px] transition-colors ${
+            currentTab === 'sunmoon' ? 'text-cyan-400 font-bold' : 'text-slate-400 hover:text-slate-200'
+          }`}
+        >
+          <Sun className="w-4 h-4 mb-0.5" />
+          <span className="text-[10px]">Sun & Moon</span>
+        </button>
+        <button
           onClick={() => setCurrentTab('airquality')}
           className={`flex flex-col items-center justify-center py-1 px-2 rounded-lg min-w-[56px] min-h-[44px] transition-colors ${
             currentTab === 'airquality' ? 'text-cyan-400 font-bold' : 'text-slate-400 hover:text-slate-200'
