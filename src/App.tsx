@@ -79,11 +79,8 @@ export default function App() {
   // Sync theme with HTML documentElement
   useEffect(() => {
     const root = document.documentElement;
-    if (theme === 'dark') {
-      root.classList.add('dark');
-    } else {
-      root.classList.remove('dark');
-    }
+    root.classList.toggle('dark', theme === 'dark');
+    root.classList.toggle('light', theme === 'light');
     setStoredTheme(theme);
   }, [theme]);
 
@@ -314,7 +311,7 @@ export default function App() {
   );
 
   return (
-    <div className="min-h-screen bg-slate-950 dark:bg-slate-950 text-slate-100 flex flex-col transition-colors duration-200">
+    <div className={`min-h-screen flex flex-col transition-colors duration-200 ${theme === 'dark' ? 'bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-900'}`}>
       
       {/* Top Header Bar */}
       <Header
@@ -362,9 +359,9 @@ export default function App() {
             currentCityName={weather?.location.name}
           />
 
-          {/* Quick city presets chip-bar */}
+          {/* Quick city presets chip-bar, including the user's village landmark */}
           <div className="flex items-center justify-center gap-1.5 sm:gap-2 flex-wrap text-xs text-slate-400 pt-0.5">
-            <span className="text-slate-400 font-medium text-[11px] sm:text-xs">Trending:</span>
+            <span className="text-slate-400 font-medium text-[11px] sm:text-xs">Quick locations:</span>
             {DEFAULT_CITIES.map((c) => (
               <button
                 key={`preset-${c.id}`}
