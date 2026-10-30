@@ -32,7 +32,7 @@ export const AirQualitySection: React.FC<AirQualitySectionProps> = ({ airQuality
               Air Quality & Atmospheric Composition
             </h2>
             <span className="text-[11px] font-mono text-cyan-400 bg-cyan-950/60 px-2 py-0.5 rounded border border-cyan-800/60">
-              Open-Meteo AQI
+              Live readings
             </span>
           </div>
           <p className="text-xs text-slate-400 mt-0.5">
