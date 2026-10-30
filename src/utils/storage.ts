@@ -9,8 +9,25 @@ const STORAGE_KEYS = {
   DEFAULT_CITY: 'atmos_default_location_v1',
 };
 
+// Saved village landmark: Pindra Durga Mandir, Hura, Purulia, West Bengal.
+// Coordinates match the Google Maps pin saved for the temple (approximate map pin).
+export const PINDRA_LOCATION: GeoLocation = {
+  id: 23407593,
+  name: 'Pindra Durga Mandir',
+  latitude: 23.40719,
+  longitude: 86.59276,
+  country: 'India',
+  country_code: 'IN',
+  admin1: 'West Bengal',
+  admin2: 'Purulia',
+  locality: 'Pindra, Hura',
+  addressLine: 'Pindra, Hura, Purulia, West Bengal 723147',
+  timezone: 'Asia/Kolkata',
+};
+
 // Default initial popular cities for user discovery
 export const DEFAULT_CITIES: GeoLocation[] = [
+  PINDRA_LOCATION,
   {
     id: 1275339,
     name: 'Mumbai',
@@ -185,7 +202,7 @@ export function getStoredDefaultCity(): GeoLocation {
   } catch {
     // fallback
   }
-  return DEFAULT_CITIES[0]; // Mumbai default
+  return DEFAULT_CITIES[0]; // Pindra village default for first-time visitors
 }
 
 export function setStoredDefaultCity(location: GeoLocation): void {
