@@ -190,7 +190,7 @@ export const WeatherAlertBanner: React.FC<WeatherAlertBannerProps> = ({ alerts }
           {/* Metadata Footer: Source, Effective & Expiration */}
           <div className="flex flex-wrap items-center justify-between gap-3 text-xs text-slate-400 pt-2 border-t border-white/10">
             <div className="flex items-center gap-2">
-              <span className="font-semibold text-slate-300">Issuing Authority:</span>
+              <span className="font-semibold text-slate-300">Alert information:</span>
               <span className="font-mono text-slate-200">{alert.source}</span>
             </div>
 
