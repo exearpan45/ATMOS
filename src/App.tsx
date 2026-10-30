@@ -8,7 +8,7 @@ import {
   Sparkles,
   LayoutDashboard,
   Calendar,
-  Layers,
+  Sun,
   Wind,
 } from 'lucide-react';
 import {
@@ -41,7 +41,6 @@ import { DailyForecast } from './components/DailyForecast';
 import { WeatherDetails } from './components/WeatherDetails';
 import { SunMoonCycle } from './components/SunMoonCycle';
 import { AirQualitySection } from './components/AirQualitySection';
-import { WeatherMap } from './components/WeatherMap';
 import { FavoritesModal } from './components/FavoritesModal';
 import { LocationPermissionModal } from './components/LocationPermissionModal';
 import { WeatherAlertBanner } from './components/WeatherAlertBanner';
@@ -456,16 +455,7 @@ export default function App() {
                 />
 
                 {/* 5. Air Quality & Atmospheric Health */}
-                <AirQualitySection airQuality={weather.airQuality} />
-
-                {/* 6. Precipitation Radar & Map with click-to-pinpoint */}
-                <WeatherMap
-                  location={weather.location}
-                  weather={weather}
-                  tempUnit={tempUnit}
-                  onSelectLocation={handleSelectCity}
-                />
-              </>
+                <AirQualitySection airQuality={weather.airQuality} /></>
             )}
 
             {/* Tab: 24h Hourly Forecast Dedicated View */}
@@ -503,27 +493,7 @@ export default function App() {
                   isDay={weather.current.isDay}
                 />
               </div>
-            )}
-
-            {/* Tab: Radar & Maps Dedicated View */}
-            {currentTab === 'radar' && (
-              <div className="space-y-6">
-                <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
-                  <h2 className="text-xl sm:text-2xl font-extrabold text-white">
-                    Global Doppler Radar & Cloud Satellite
-                  </h2>
-                  <span className="text-xs font-mono text-slate-400">Live RainViewer Precipitation</span>
-                </div>
-                <WeatherMap
-                  location={weather.location}
-                  weather={weather}
-                  tempUnit={tempUnit}
-                  onSelectLocation={handleSelectCity}
-                />
-              </div>
-            )}
-
-            {/* Tab: Air Quality Dedicated View */}
+            )}{/* Tab: Air Quality Dedicated View */}
             {currentTab === 'airquality' && (
               <div className="space-y-6">
                 <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
@@ -596,19 +566,7 @@ export default function App() {
         >
           <Calendar className="w-4 h-4 mb-0.5" />
           <span className="text-[10px]">7-Day</span>
-        </button>
-
-        <button
-          onClick={() => setCurrentTab('radar')}
-          className={`flex flex-col items-center justify-center py-1 px-2 rounded-lg min-w-[56px] min-h-[44px] transition-colors ${
-            currentTab === 'radar' ? 'text-cyan-400 font-bold' : 'text-slate-400 hover:text-slate-200'
-          }`}
-        >
-          <Layers className="w-4 h-4 mb-0.5" />
-          <span className="text-[10px]">Radar</span>
-        </button>
-
-        <button
+        </button><button
           onClick={() => setCurrentTab('airquality')}
           className={`flex flex-col items-center justify-center py-1 px-2 rounded-lg min-w-[56px] min-h-[44px] transition-colors ${
             currentTab === 'airquality' ? 'text-cyan-400 font-bold' : 'text-slate-400 hover:text-slate-200'
