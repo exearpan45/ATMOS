@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="atmos-grad" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="50%" stop-color="#06b6d4" />
+      <stop offset="100%" stop-color="#6366f1" />
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="#0f172a" />
+  <circle cx="28" cy="26" r="11" fill="url(#atmos-grad)" opacity="0.9" />
+  <path d="M18 42c0-5 4-9 9-9 1.2 0 2.3.2 3.3.7C32 30.5 35.8 28 40.5 28 46.3 28 51 32.7 51 38.5c0 .6 0 1.2-.2 1.8 3 1 5.2 3.8 5.2 7.2 0 4.1-3.4 7.5-7.5 7.5H23c-5 0-9-4-9-9 0-1.5.4-2.8 1.1-4 .4-.6 1.4-1.2 2.9-2z" fill="#f8fafc" opacity="0.95" />
+  <path d="M26 48l-2 5M34 48l-2 5M42 48l-2 5" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round" />
+</svg>

@@ -1,0 +1,10 @@
+{
+  "name": "ATMOS – Real-Time Weather & Forecast Platform",
+  "description": "Explore accurate real-time weather conditions, 24-hour hourly forecasts, 7-day outlooks, global radar maps, and detailed air quality data with ATMOS.",
+  "requestFramePermissions": [
+    "geolocation"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

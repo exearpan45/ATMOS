@@ -1,0 +1,278 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  :root {
+    --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Custom scrollbar for horizontal forecast and sleek aesthetic */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.25);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.45);
+}
+
+/* Leaflet dark/light map styling overrides */
+.dark .leaflet-container {
+  background: #0b1120;
+}
+
+.leaflet-control-zoom {
+  border: none !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  border-radius: 8px !important;
+  overflow: hidden;
+}
+
+.leaflet-control-zoom a {
+  background: rgba(255, 255, 255, 0.85) !important;
+  color: #1e293b !important;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.8) !important;
+}
+
+.dark .leaflet-control-zoom a {
+  background: rgba(30, 41, 59, 0.85) !important;
+  color: #f1f5f9 !important;
+  border-bottom: 1px solid rgba(51, 65, 85, 0.8) !important;
+}
+
+.dark .leaflet-tile {
+  filter: brightness(0.7) invert(1) contrast(3) hue-rotate(200deg) saturate(0.35);
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 12px !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2) !important;
+}
+
+.dark .leaflet-popup-content-wrapper,
+.dark .leaflet-popup-tip {
+  background: #0f172a !important;
+  color: #f8fafc !important;
+}
+
+/* Glassmorphism helpers */
+.glass-panel {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+/* =========================================================
+   PREMIUM DYNAMIC WEATHER & CELESTIAL CSS KEYFRAME ANIMATIONS
+   ========================================================= */
+
+@keyframes weatherIconEntry {
+  0% {
+    opacity: 0;
+    transform: scale(0.85) translateY(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-icon-entry {
+  animation: weatherIconEntry 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slowSpin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-slow-spin {
+  animation: slowSpin 36s linear infinite;
+}
+
+@keyframes sunPulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.45));
+    transform: scale(1);
+  }
+  50% {
+    filter: drop-shadow(0 0 16px rgba(245, 158, 11, 0.7));
+    transform: scale(1.03);
+  }
+}
+
+.animate-sun-pulse {
+  animation: sunPulse 4s ease-in-out infinite;
+}
+
+@keyframes moonGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 6px rgba(165, 180, 252, 0.35));
+    transform: scale(1);
+  }
+  50% {
+    filter: drop-shadow(0 0 14px rgba(129, 140, 248, 0.65));
+    transform: scale(1.02);
+  }
+}
+
+.animate-moon-glow {
+  animation: moonGlow 5s ease-in-out infinite;
+}
+
+@keyframes cloudDrift {
+  0%, 100% {
+    transform: translateX(0) translateY(0);
+  }
+  50% {
+    transform: translateX(3px) translateY(-2px);
+  }
+}
+
+.animate-cloud-drift {
+  animation: cloudDrift 6s ease-in-out infinite;
+}
+
+@keyframes rainDrop {
+  0% {
+    transform: translateY(-4px);
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(9px);
+    opacity: 0;
+  }
+}
+
+.animate-rain-1 {
+  animation: rainDrop 1.1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-rain-2 {
+  animation: rainDrop 1.1s cubic-bezier(0.4, 0, 0.6, 1) infinite 0.35s;
+}
+
+.animate-rain-3 {
+  animation: rainDrop 1.1s cubic-bezier(0.4, 0, 0.6, 1) infinite 0.7s;
+}
+
+@keyframes snowSway {
+  0% {
+    transform: translateY(-3px) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(8px) translateX(2px) rotate(45deg);
+    opacity: 0;
+  }
+}
+
+.animate-snow-1 {
+  animation: snowSway 2.2s ease-in-out infinite;
+}
+
+.animate-snow-2 {
+  animation: snowSway 2.2s ease-in-out infinite 0.75s;
+}
+
+.animate-snow-3 {
+  animation: snowSway 2.2s ease-in-out infinite 1.4s;
+}
+
+@keyframes lightningStrobe {
+  0%, 90%, 94%, 98%, 100% {
+    opacity: 0;
+  }
+  91%, 95% {
+    opacity: 1;
+    filter: drop-shadow(0 0 10px rgba(192, 132, 252, 0.9));
+  }
+}
+
+.animate-lightning {
+  animation: lightningStrobe 4s ease-in-out infinite;
+}
+
+@keyframes mistDrift {
+  0%, 100% {
+    transform: translateX(-2px);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateX(3px);
+    opacity: 0.95;
+  }
+}
+
+.animate-mist {
+  animation: mistDrift 4.5s ease-in-out infinite alternate;
+}
+
+/* Subtle background atmosphere */
+@keyframes atmosphericPulse {
+  0%, 100% {
+    transform: scale(1) translate(0, 0);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scale(1.08) translate(10px, -15px);
+    opacity: 0.6;
+  }
+}
+
+.animate-atmosphere {
+  animation: atmosphericPulse 14s ease-in-out infinite alternate;
+}
+
+/* Respect user's motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .animate-icon-entry,
+  .animate-slow-spin,
+  .animate-sun-pulse,
+  .animate-moon-glow,
+  .animate-cloud-drift,
+  .animate-rain-1,
+  .animate-rain-2,
+  .animate-rain-3,
+  .animate-snow-1,
+  .animate-snow-2,
+  .animate-snow-3,
+  .animate-lightning,
+  .animate-mist,
+  .animate-atmosphere {
+    animation: none !important;
+    transition: none !important;
+  }
+}
