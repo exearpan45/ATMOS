@@ -360,7 +360,7 @@ export async function extractSevereWeatherAlerts(
       urgency: 'Immediate',
       description: 'Severe atmospheric instability detected with destructive hail stones, cloud-to-ground lightning strikes, and violent wind downdrafts.',
       instruction: 'Move immediately to an interior room on the lowest floor of a sturdy building. Avoid windows and electrical appliances.',
-      source: 'Open-Meteo Doppler NWP Engine',
+      source: 'Weather monitoring',
       effective: nowIso,
       expires: futureIso,
     });
@@ -373,7 +373,7 @@ export async function extractSevereWeatherAlerts(
       urgency: 'Immediate',
       description: 'Atmospheric instability with lightning discharges and gusty squalls reported in the vicinity.',
       instruction: 'Suspend outdoor activities immediately. When thunder roars, go indoors.',
-      source: 'Open-Meteo Meteorological Telemetry',
+      source: 'Weather monitoring',
       effective: nowIso,
       expires: futureIso,
     });
@@ -389,7 +389,7 @@ export async function extractSevereWeatherAlerts(
       urgency: 'Immediate',
       description: 'Dangerous storm-force wind velocities capable of causing structural damage, toppling power lines, and uprooting trees.',
       instruction: 'Secure outdoor furniture and loose debris. Avoid travel in high-profile vehicles.',
-      source: 'Open-Meteo Anemometer Grid',
+      source: 'Weather monitoring',
       effective: nowIso,
       expires: futureIso,
     });
@@ -402,7 +402,7 @@ export async function extractSevereWeatherAlerts(
       urgency: 'Expected',
       description: 'Elevated crosswinds and sustained gustiness impacting local transport and outdoor structures.',
       instruction: 'Exercise caution while driving across bridges and elevated overpasses.',
-      source: 'Open-Meteo Anemometer Grid',
+      source: 'Weather monitoring',
       effective: nowIso,
       expires: futureIso,
     });
@@ -418,7 +418,7 @@ export async function extractSevereWeatherAlerts(
       urgency: 'Immediate',
       description: 'Extremely high localized precipitation rate leading to rapid water accumulation and urban runoff flooding.',
       instruction: 'Do not attempt to drive through flooded roads or underpasses. Turn around, don\'t drown.',
-      source: 'Open-Meteo Hydrology Grid',
+      source: 'Weather monitoring',
       effective: nowIso,
       expires: futureIso,
     });
@@ -434,7 +434,7 @@ export async function extractSevereWeatherAlerts(
       urgency: 'Immediate',
       description: 'Oppressive heat and humidity significantly increasing the risk of heat exhaustion and heat stroke during outdoor exposure.',
       instruction: 'Stay in air-conditioned spaces, drink plenty of water, and never leave children or pets inside unattended vehicles.',
-      source: 'Open-Meteo Biometeorology Model',
+      source: 'Weather monitoring',
       effective: nowIso,
       expires: futureIso,
     });
@@ -450,7 +450,7 @@ export async function extractSevereWeatherAlerts(
       urgency: 'Immediate',
       description: 'Severe freezing temperatures capable of causing frostbite on exposed skin in less than 30 minutes.',
       instruction: 'Dress in layered insulated garments, cover face and hands, and insulate exposed water piping.',
-      source: 'Open-Meteo Cryosphere Telemetry',
+      source: 'Weather monitoring',
       effective: nowIso,
       expires: futureIso,
     });
@@ -466,7 +466,7 @@ export async function extractSevereWeatherAlerts(
       urgency: 'Expected',
       description: 'Unprotected skin and eyes can suffer phototoxic burn damage within 10 to 15 minutes under this radiation intensity.',
       instruction: 'Wear broad-spectrum SPF 50+ sunscreen, UV400 wrap-around sunglasses, and avoid sun exposure between 11 AM and 3 PM.',
-      source: 'Open-Meteo Solar Radiation Model',
+      source: 'Weather monitoring',
       effective: nowIso,
       expires: futureIso,
     });
@@ -482,7 +482,7 @@ export async function extractSevereWeatherAlerts(
       urgency: 'Immediate',
       description: `Elevated particulate matter concentration (${pm25 ? pm25 + ' µg/m³ PM2.5' : 'AQI ' + usAqi}) exceeding safe respiratory thresholds.`,
       instruction: 'Individuals with heart or lung disease, older adults, and children should avoid all outdoor physical exertion. Keep windows closed.',
-      source: 'Open-Meteo Aerosol & Air Quality API',
+      source: 'Weather monitoring',
       effective: nowIso,
       expires: futureIso,
     });
@@ -512,7 +512,7 @@ export async function extractSevereWeatherAlerts(
                 urgency: props.urgency === 'Immediate' ? 'Immediate' : 'Expected',
                 description: props.description || props.summary || '',
                 instruction: props.instruction || 'Follow guidance from local emergency management authorities.',
-                source: 'National Weather Service (NOAA/NWS)',
+                source: 'Official weather authority',
                 effective: props.effective || nowIso,
                 expires: props.expires || futureIso,
               });
@@ -635,7 +635,7 @@ export async function fetchWeatherData(
 
     if (!weatherRes.ok) {
       const errorText = await weatherRes.text();
-      throw new Error(`Open-Meteo weather service error (${weatherRes.status}): ${errorText}`);
+      throw new Error(`Weather service error (${weatherRes.status}): ${errorText}`);
     }
 
     const weatherJson = await weatherRes.json();
