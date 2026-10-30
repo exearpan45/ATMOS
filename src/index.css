@@ -345,3 +345,9 @@ html.light .leaflet-popup-tip {
 html.light .leaflet-container {
   background: #e2e8f0;
 }
+
+
+/* Keep white labels readable on saturated action buttons in light mode. */
+html.light button[class~="text-white"] {
+  color: #ffffff !important;
+}
