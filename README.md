@@ -27,7 +27,6 @@ Created by **Arpan Goswami**.
    - Visual SVG solar arc indicator displaying live sun/moon traversal.
 
 5. **Aerosols & Air Quality Index (AQI)**:
-   - Integrated Open-Meteo Air Quality API providing European AQI and US EPA AQI scales.
    - Granular breakdown of key pollutants: PM2.5, PM10, Nitrogen Dioxide ($\text{NO}_2$), Ozone ($\text{O}_3$), Sulphur Dioxide ($\text{SO}_2$), and Carbon Monoxide ($\text{CO}$).
    - WHO & EPA health advisories for general populations and sensitive groups.
 
@@ -37,12 +36,11 @@ Created by **Arpan Goswami**.
 
 
 7. **Global City Search & Geocoding**:
-   - Fast debounced city and region search powered by Open-Meteo Geocoding API.
    - Keyboard accessible (Arrow Up/Down, Enter, Escape).
    - Saved favorites and recent search history stored securely in LocalStorage.
 
 8. **Location Detection via GPS**:
-   - Safe, user-initiated Geolocation API detection.
+   - Safe, user-initiated device location detection.
    - Automatically reverse-geocodes coordinates into city and country names.
 
 9. **Unit & Theme Customization**:
@@ -98,15 +96,6 @@ This compiles optimized static assets into the `dist/` directory, ready to deplo
 
 ---
 
-## 🌐 API Reference & Documentation
-
-- **Open-Meteo Weather Forecast API**: [https://open-meteo.com/en/docs](https://open-meteo.com/en/docs)
-- **Open-Meteo Geocoding API**: [https://open-meteo.com/en/docs/geocoding-api](https://open-meteo.com/en/docs/geocoding-api)
-- **Open-Meteo Air Quality API**: [https://air-quality-api.open-meteo.com/v1/air-quality](https://air-quality-api.open-meteo.com/v1/air-quality)
-- **OpenStreetMap Data**: [https://www.openstreetmap.org/copyright](https://www.openstreetmap.org/copyright)
-
----
-
 ## 📂 Project Architecture
 
 ```
@@ -124,7 +113,6 @@ This compiles optimized static assets into the `dist/` directory, ready to deplo
 │   ├── types/
 │   │   └── weather.ts           # Unified TypeScript definitions & schemas
 │   ├── services/
-│   │   └── api.ts               # Open-Meteo API integrations & caching layer
 │   ├── utils/
 │   │   ├── weatherCodes.ts      # WMO condition mapping & AQI thresholds
 │   │   ├── formatters.ts        # Unit converters & date/time formatters
@@ -178,7 +166,7 @@ npm run build
 ## 🛡️ Privacy & Performance
 
 - **Zero Trackers**: No third-party behavioral analytics or telemetry scripts.
-- **Client-Side Caching**: 10-minute cache on meteorological requests to prevent unnecessary network requests and respect API rate limits.
+- **Client-Side Caching**: 10-minute cache on meteorological requests to prevent unnecessary network requests and avoid unnecessary network requests.
 - **Responsive Layout**: Validated across mobile (360px–390px), tablet (768px), and desktop (1024px–1440px+).
 
 ---
@@ -187,6 +175,5 @@ npm run build
 
 **Created by Arpan Goswami.**
 
-Weather data generously provided by [Open-Meteo](https://open-meteo.com/) under Creative Commons Attribution 4.0 International (CC BY 4.0).
-Map tiles provided by [CARTO](https://carto.com/) and [OpenStreetMap](https://www.openstreetmap.org/).
+Weather data is provided by [Open-Meteo](https://open-meteo.com/) under Creative Commons Attribution 4.0 International (CC BY 4.0).
 Licensed under the Apache-2.0 License.
