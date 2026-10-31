@@ -19,6 +19,9 @@ export const Footer: React.FC = () => {
 
         </div>
 
+        <p className="text-[10px] text-slate-500">
+          Weather data: <a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-cyan-400">Open-Meteo</a>
+        </p>
         <div className="pt-4 border-t border-slate-900 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-slate-400">
           <div>
             &copy; {new Date().getFullYear()} ATMOS Platform · All rights reserved.
