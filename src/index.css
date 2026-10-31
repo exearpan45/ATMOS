@@ -33,45 +33,6 @@
   background: rgba(148, 163, 184, 0.45);
 }
 
-/* Leaflet dark/light map styling overrides */
-.dark .leaflet-container {
-  background: #0b1120;
-}
-
-.leaflet-control-zoom {
-  border: none !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
-  border-radius: 8px !important;
-  overflow: hidden;
-}
-
-.leaflet-control-zoom a {
-  background: rgba(255, 255, 255, 0.85) !important;
-  color: #1e293b !important;
-  border-bottom: 1px solid rgba(226, 232, 240, 0.8) !important;
-}
-
-.dark .leaflet-control-zoom a {
-  background: rgba(30, 41, 59, 0.85) !important;
-  color: #f1f5f9 !important;
-  border-bottom: 1px solid rgba(51, 65, 85, 0.8) !important;
-}
-
-.dark .leaflet-tile {
-  filter: brightness(0.7) invert(1) contrast(3) hue-rotate(200deg) saturate(0.35);
-}
-
-.leaflet-popup-content-wrapper {
-  border-radius: 12px !important;
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2) !important;
-}
-
-.dark .leaflet-popup-content-wrapper,
-.dark .leaflet-popup-tip {
-  background: #0f172a !important;
-  color: #f8fafc !important;
-}
-
 /* Glassmorphism helpers */
 .glass-panel {
   backdrop-filter: blur(16px);
@@ -336,14 +297,6 @@ html.light [class*="border-slate-700/"],
 html.light [class~="border-slate-600"],
 html.light [class*="border-slate-600/"] {
   border-color: #e2e8f0 !important;
-}
-html.light .leaflet-popup-content-wrapper,
-html.light .leaflet-popup-tip {
-  background: #ffffff !important;
-  color: #0f172a !important;
-}
-html.light .leaflet-container {
-  background: #e2e8f0;
 }
 
 
