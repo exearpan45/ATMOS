@@ -103,7 +103,6 @@ This compiles optimized static assets into the `dist/` directory, ready to deplo
 - **Open-Meteo Weather Forecast API**: [https://open-meteo.com/en/docs](https://open-meteo.com/en/docs)
 - **Open-Meteo Geocoding API**: [https://open-meteo.com/en/docs/geocoding-api](https://open-meteo.com/en/docs/geocoding-api)
 - **Open-Meteo Air Quality API**: [https://air-quality-api.open-meteo.com/v1/air-quality](https://air-quality-api.open-meteo.com/v1/air-quality)
-- **RainViewer Free Radar API**: [https://www.rainviewer.com/api.html](https://www.rainviewer.com/api.html)
 - **OpenStreetMap Data**: [https://www.openstreetmap.org/copyright](https://www.openstreetmap.org/copyright)
 
 ---
@@ -139,7 +138,6 @@ This compiles optimized static assets into the `dist/` directory, ready to deplo
 │       ├── WeatherDetails.tsx   # Sensor telemetry grid (Wind, UV, Pressure, etc.)
 │       ├── SunMoonCycle.tsx     # SVG solar arc ephemeris tracking
 │       ├── AirQualitySection.tsx# European & US AQI with pollutant breakdown
-│       ├── WeatherMap.tsx       # Leaflet interactive map with live RainViewer radar
 │       ├── WeatherIcon.tsx      # Condition-based animated Lucide icon mapper
 │       ├── FavoritesModal.tsx   # Saved cities management dialog
 │       └── Footer.tsx           # Attributions & credits
@@ -190,6 +188,5 @@ npm run build
 **Created by Arpan Goswami.**
 
 Weather data generously provided by [Open-Meteo](https://open-meteo.com/) under Creative Commons Attribution 4.0 International (CC BY 4.0).
-Radar tiles provided by [RainViewer](https://www.rainviewer.com/).
 Map tiles provided by [CARTO](https://carto.com/) and [OpenStreetMap](https://www.openstreetmap.org/).
 Licensed under the Apache-2.0 License.
