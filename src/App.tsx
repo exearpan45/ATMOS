@@ -8,7 +8,6 @@ import {
   Sparkles,
   LayoutDashboard,
   Calendar,
-  Sun,
   Wind,
 } from 'lucide-react';
 import {
@@ -20,7 +19,6 @@ import {
 import { fetchWeatherData, reverseGeocode, fetchIpLocation } from './services/api';
 import {
   addToSearchHistory,
-  clearSearchHistory,
   DEFAULT_CITIES,
   getStoredDefaultCity,
   getStoredFavorites,
@@ -46,6 +44,7 @@ import { LocationPermissionModal } from './components/LocationPermissionModal';
 import { WeatherAlertBanner } from './components/WeatherAlertBanner';
 import { BackToTop } from './components/BackToTop';
 import { Footer } from './components/Footer';
+import { WeatherPlanner } from './components/WeatherPlanner';
 
 export default function App() {
   // Application State
@@ -74,6 +73,8 @@ export default function App() {
   const [noticeMessage, setNoticeMessage] = useState<string | null>(null);
 
   const abortControllerRef = useRef<AbortController | null>(null);
+  const requestIdRef = useRef(0);
+  const weatherRef = useRef<WeatherData | null>(null);
 
   // Sync theme with HTML documentElement
   useEffect(() => {
@@ -99,68 +100,69 @@ export default function App() {
     }
   }, []);
 
-  // Online / Offline listeners
-  useEffect(() => {
-    const handleOnline = () => {
-      setIsOffline(false);
-      setNoticeMessage('Network connection restored. Updating weather data...');
-      loadWeather(currentCity, true);
-      setTimeout(() => setNoticeMessage(null), 4000);
-    };
-
-    const handleOffline = () => {
-      setIsOffline(true);
-      setNoticeMessage('You are currently offline. Viewing cached meteorological data.');
-    };
-
-    window.addEventListener('online', handleOnline);
-    window.addEventListener('offline', handleOffline);
-
-    return () => {
-      window.removeEventListener('online', handleOnline);
-      window.removeEventListener('offline', handleOffline);
-    };
-  }, [currentCity]);
-
-  // Main Weather Loader
+  // Main Weather Loader. Request IDs stop stale requests from overwriting
+  // newer results or clearing their loading indicators.
   const loadWeather = useCallback(
     async (location: GeoLocation, forceRefresh: boolean = false) => {
-      if (abortControllerRef.current) {
-        abortControllerRef.current.abort();
-      }
-
+      abortControllerRef.current?.abort();
       const controller = new AbortController();
       abortControllerRef.current = controller;
+      const requestId = ++requestIdRef.current;
 
-      if (!weather) {
-        setIsLoading(true);
-      } else {
-        setIsRefreshing(true);
-      }
+      if (!weatherRef.current) setIsLoading(true);
+      else setIsRefreshing(true);
       setErrorMessage(null);
 
       try {
         const data = await fetchWeatherData(location, forceRefresh, controller.signal);
+        if (requestId !== requestIdRef.current) return;
+        weatherRef.current = data;
         setWeather(data);
         setCurrentCity(data.location);
         setStoredDefaultCity(data.location);
-      } catch (err: any) {
-        if (err.name !== 'AbortError') {
-          console.error('Failed to load weather:', err);
-          setErrorMessage(err.message || 'Unable to retrieve meteorological data. Please verify your connection.');
-        }
+      } catch (err: unknown) {
+        if (requestId !== requestIdRef.current) return;
+        if (err instanceof Error && err.name === 'AbortError') return;
+        console.error('Failed to load weather:', err);
+        setErrorMessage(err instanceof Error ? err.message : 'Weather could not be loaded. Check your connection and try again.');
       } finally {
-        setIsLoading(false);
-        setIsRefreshing(false);
+        if (requestId === requestIdRef.current) {
+          setIsLoading(false);
+          setIsRefreshing(false);
+        }
       }
     },
-    [weather]
+    []
   );
 
-  // Load weather on initial mount or when city coordinates change
+  useEffect(() => () => {
+    requestIdRef.current += 1;
+    abortControllerRef.current?.abort();
+  }, []);
+
+  // Online / Offline listeners
   useEffect(() => {
-    loadWeather(currentCity);
-  }, [currentCity.latitude, currentCity.longitude]);
+    const handleOnline = () => {
+      setIsOffline(false);
+      setNoticeMessage('Connection restored. Updating weather...');
+      void loadWeather(currentCity, true);
+      setTimeout(() => setNoticeMessage(null), 4000);
+    };
+    const handleOffline = () => {
+      setIsOffline(true);
+      setNoticeMessage('You are offline. Showing the latest available weather.');
+    };
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, [currentCity, loadWeather]);
+
+  useEffect(() => {
+    void loadWeather(currentCity);
+  }, [currentCity.latitude, currentCity.longitude, loadWeather]);
 
   // City selection handler (from search, map pin drop, or favorites)
   const handleSelectCity = (location: GeoLocation) => {
@@ -375,9 +377,6 @@ export default function App() {
               </button>
             ))}
           </div>
-          <p className="text-center text-[10px] text-slate-500">
-            Weather data by <a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-cyan-400">Open-Meteo</a>
-          </p>
         </section>
 
         {/* Loading Skeleton */}
@@ -497,6 +496,16 @@ export default function App() {
                 />
               </div>
             )}{/* Tab: Air Quality Dedicated View */}
+            {currentTab === 'planner' && (
+              <WeatherPlanner
+                location={weather.location}
+                current={weather.current}
+                hourly={weather.hourly}
+                daily={weather.daily}
+                tempUnit={tempUnit}
+              />
+            )}
+
             {currentTab === 'airquality' && (
               <div className="space-y-6">
                 <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
@@ -569,14 +578,15 @@ export default function App() {
         >
           <Calendar className="w-4 h-4 mb-0.5" />
           <span className="text-[10px]">7-Day</span>
-        </button><button
-          onClick={() => setCurrentTab('sunmoon')}
+        </button>
+        <button
+          onClick={() => setCurrentTab('planner')}
           className={`flex flex-col items-center justify-center py-1 px-2 rounded-lg min-w-[56px] min-h-[44px] transition-colors ${
-            currentTab === 'sunmoon' ? 'text-cyan-400 font-bold' : 'text-slate-400 hover:text-slate-200'
+            currentTab === 'planner' ? 'text-cyan-400 font-bold' : 'text-slate-400 hover:text-slate-200'
           }`}
         >
-          <Sun className="w-4 h-4 mb-0.5" />
-          <span className="text-[10px]">Sun & Moon</span>
+          <Sparkles className="w-4 h-4 mb-0.5" />
+          <span className="text-[10px]">Planner</span>
         </button>
         <button
           onClick={() => setCurrentTab('airquality')}
