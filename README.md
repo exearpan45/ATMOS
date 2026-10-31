@@ -1,6 +1,6 @@
 # ATMOS – Premium Real-Time Weather & Forecast Platform
 
-ATMOS is a modern, high-performance, real-time meteorological platform designed to provide accurate weather intelligence, 24-hour predictive models, 7-day extended forecasts, and live Doppler precipitation radar across the globe with zero mandatory paid services.
+ATMOS is a modern, high-performance, real-time meteorological platform designed to provide accurate weather intelligence, 24-hour predictive models, 7-day extended forecasts with global forecasts and practical planning tools.
 
 Created by **Arpan Goswami**.
 
@@ -31,10 +31,10 @@ Created by **Arpan Goswami**.
    - Granular breakdown of key pollutants: PM2.5, PM10, Nitrogen Dioxide ($\text{NO}_2$), Ozone ($\text{O}_3$), Sulphur Dioxide ($\text{SO}_2$), and Carbon Monoxide ($\text{CO}$).
    - WHO & EPA health advisories for general populations and sensitive groups.
 
-6. **Interactive Precipitation Radar Map**:
-   - Powered by Leaflet and RainViewer Doppler radar tile layers (completely free with no API key requirement).
-   - Real-time past and nowcast radar animation playback with interactive scrub controls.
-   - Satellite infrared cloud layer toggle and geographic recenter controls.
+6. **Weather Planner**:
+   - Outdoor activity score based on forecast rain, temperature, wind, and UV.
+   - Suggested weather window and practical planning tips.
+
 
 7. **Global City Search & Geocoding**:
    - Fast debounced city and region search powered by Open-Meteo Geocoding API.
@@ -57,10 +57,7 @@ Created by **Arpan Goswami**.
 - **Styling**: Tailwind CSS v4 + Glassmorphism architecture
 - **Icons**: Lucide Icons
 - **Charting**: Chart.js
-- **Mapping**: Leaflet + OpenStreetMap & CARTO + RainViewer Doppler API
-- **Weather Data**: Open-Meteo Weather Forecast API
-- **Geocoding**: Open-Meteo Geocoding API
-- **Air Quality**: Open-Meteo Air Quality API
+- **Weather Data**: Global forecast, location search, and air-quality services
 - **Persistence**: LocalStorage with schema validation & fallback protection
 - **Deployment**: GitHub + Cloudflare Pages ready (static SPA build)
 
