@@ -35,7 +35,7 @@ export const Header: React.FC<HeaderProps> = ({
     { id: 'dashboard', label: 'Dashboard' },
     { id: 'hourly', label: '24h Hourly' },
     { id: 'forecast', label: '7-Day Outlook' },
-    { id: 'sunmoon', label: 'Sun & Moon' },
+    { id: 'planner', label: 'Weather Planner' },
     { id: 'airquality', label: 'Air Quality' },
   ];
 
