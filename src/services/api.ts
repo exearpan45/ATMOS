@@ -667,44 +667,44 @@ export async function fetchWeatherData(
       const actualIdx = startIndex + idx;
       return {
         time,
-        formattedTime: formatHourTime(time, weatherJson.timezone),
-        temperature: weatherJson.hourly.temperature_2m[actualIdx] ?? 0,
-        apparentTemperature: weatherJson.hourly.apparent_temperature[actualIdx] ?? 0,
-        precipitationProbability: weatherJson.hourly.precipitation_probability[actualIdx] ?? 0,
-        precipitation: weatherJson.hourly.precipitation[actualIdx] ?? 0,
-        weatherCode: weatherJson.hourly.weather_code[actualIdx] ?? 0,
-        pressure: weatherJson.hourly.pressure_msl[actualIdx] ?? 1013,
-        cloudCover: weatherJson.hourly.cloud_cover[actualIdx] ?? 0,
-        visibility: weatherJson.hourly.visibility[actualIdx] ?? 10000,
-        windSpeed: weatherJson.hourly.wind_speed_10m[actualIdx] ?? 0,
-        windDirection: weatherJson.hourly.wind_direction_10m[actualIdx] ?? 0,
-        uvIndex: weatherJson.hourly.uv_index[actualIdx] ?? 0,
-        isDay: weatherJson.hourly.is_day[actualIdx] === 1,
+        formattedTime: formatHourTime(time, timezone),
+        temperature: weatherJson.hourly.temperature_2m?.[actualIdx] ?? 0,
+        apparentTemperature: weatherJson.hourly.apparent_temperature?.[actualIdx] ?? 0,
+        precipitationProbability: weatherJson.hourly.precipitation_probability?.[actualIdx] ?? 0,
+        precipitation: weatherJson.hourly.precipitation?.[actualIdx] ?? 0,
+        weatherCode: weatherJson.hourly.weather_code?.[actualIdx] ?? 0,
+        pressure: weatherJson.hourly.pressure_msl?.[actualIdx] ?? 1013,
+        cloudCover: weatherJson.hourly.cloud_cover?.[actualIdx] ?? 0,
+        visibility: weatherJson.hourly.visibility?.[actualIdx] ?? 10000,
+        windSpeed: weatherJson.hourly.wind_speed_10m?.[actualIdx] ?? 0,
+        windDirection: weatherJson.hourly.wind_direction_10m?.[actualIdx] ?? 0,
+        uvIndex: weatherJson.hourly.uv_index?.[actualIdx] ?? 0,
+        isDay: weatherJson.hourly.is_day?.[actualIdx] === 1,
       };
     });
 
     // Process daily forecast (7 days)
     const dailyTimes: string[] = weatherJson.daily?.time || [];
     const daily: DailyForecastItem[] = dailyTimes.slice(0, 7).map((date, idx) => {
-      const { dayName, formattedDate } = formatDayOfWeek(date, weatherJson.timezone);
+      const { dayName, formattedDate } = formatDayOfWeek(date, timezone);
       return {
         date,
         dayName,
         formattedDate,
-        weatherCode: weatherJson.daily.weather_code[idx] ?? 0,
-        tempMax: weatherJson.daily.temperature_2m_max[idx] ?? 0,
-        tempMin: weatherJson.daily.temperature_2m_min[idx] ?? 0,
-        apparentTempMax: weatherJson.daily.apparent_temperature_max[idx] ?? 0,
-        apparentTempMin: weatherJson.daily.apparent_temperature_min[idx] ?? 0,
-        sunrise: weatherJson.daily.sunrise[idx] ?? '',
-        sunset: weatherJson.daily.sunset[idx] ?? '',
-        daylightDuration: weatherJson.daily.daylight_duration[idx] ?? 0,
-        uvIndexMax: weatherJson.daily.uv_index_max[idx] ?? 0,
-        precipitationSum: weatherJson.daily.precipitation_sum[idx] ?? 0,
-        precipitationProbabilityMax: weatherJson.daily.precipitation_probability_max[idx] ?? 0,
-        windSpeedMax: weatherJson.daily.wind_speed_10m_max[idx] ?? 0,
-        windGustsMax: weatherJson.daily.wind_gusts_10m_max[idx] ?? 0,
-        windDirectionDominant: weatherJson.daily.wind_direction_10m_dominant[idx] ?? 0,
+        weatherCode: weatherJson.daily.weather_code?.[idx] ?? 0,
+        tempMax: weatherJson.daily.temperature_2m_max?.[idx] ?? 0,
+        tempMin: weatherJson.daily.temperature_2m_min?.[idx] ?? 0,
+        apparentTempMax: weatherJson.daily.apparent_temperature_max?.[idx] ?? 0,
+        apparentTempMin: weatherJson.daily.apparent_temperature_min?.[idx] ?? 0,
+        sunrise: weatherJson.daily.sunrise?.[idx] ?? '',
+        sunset: weatherJson.daily.sunset?.[idx] ?? '',
+        daylightDuration: weatherJson.daily.daylight_duration?.[idx] ?? 0,
+        uvIndexMax: weatherJson.daily.uv_index_max?.[idx] ?? 0,
+        precipitationSum: weatherJson.daily.precipitation_sum?.[idx] ?? 0,
+        precipitationProbabilityMax: weatherJson.daily.precipitation_probability_max?.[idx] ?? 0,
+        windSpeedMax: weatherJson.daily.wind_speed_10m_max?.[idx] ?? 0,
+        windGustsMax: weatherJson.daily.wind_gusts_10m_max?.[idx] ?? 0,
+        windDirectionDominant: weatherJson.daily.wind_direction_10m_dominant?.[idx] ?? 0,
       };
     });
 
@@ -731,34 +731,37 @@ export async function fetchWeatherData(
     // Extract active severe meteorological alerts and emergency warnings
     const alerts = await extractSevereWeatherAlerts(weatherJson, aqiJson, location, signal);
 
+    const currentJson = weatherJson.current ?? {};
+    const timezone = weatherJson.timezone || location.timezone || 'auto';
+
     const weatherData: WeatherData = {
       location: {
         ...location,
         elevation: weatherJson.elevation ?? location.elevation,
-        timezone: weatherJson.timezone || location.timezone,
+        timezone,
       },
       current: {
-        time: weatherJson.current.time,
-        temperature: weatherJson.current.temperature_2m,
-        apparentTemperature: weatherJson.current.apparent_temperature,
-        isDay: weatherJson.current.is_day === 1,
-        precipitation: weatherJson.current.precipitation,
-        rain: weatherJson.current.rain,
-        showers: weatherJson.current.showers,
-        snowfall: weatherJson.current.snowfall,
-        weatherCode: weatherJson.current.weather_code,
-        cloudCover: weatherJson.current.cloud_cover,
+        time: currentJson.time || new Date().toISOString(),
+        temperature: currentJson.temperature_2m ?? 0,
+        apparentTemperature: currentJson.apparent_temperature ?? currentJson.temperature_2m ?? 0,
+        isDay: currentJson.is_day === 1,
+        precipitation: currentJson.precipitation ?? 0,
+        rain: currentJson.rain ?? 0,
+        showers: currentJson.showers ?? 0,
+        snowfall: currentJson.snowfall ?? 0,
+        weatherCode: currentJson.weather_code ?? 0,
+        cloudCover: currentJson.cloud_cover ?? 0,
         pressure: weatherJson.current.pressure_msl ?? weatherJson.current.surface_pressure ?? 1013,
-        windSpeed: weatherJson.current.wind_speed_10m,
-        windDirection: weatherJson.current.wind_direction_10m,
-        windGusts: weatherJson.current.wind_gusts_10m,
-        relativeHumidity: weatherJson.current.relative_humidity_2m,
+        windSpeed: currentJson.wind_speed_10m ?? 0,
+        windDirection: currentJson.wind_direction_10m ?? 0,
+        windGusts: currentJson.wind_gusts_10m ?? 0,
+        relativeHumidity: currentJson.relative_humidity_2m ?? 0,
       },
       hourly,
       daily,
       airQuality,
       alerts,
-      timezone: weatherJson.timezone,
+      timezone,
       utcOffsetSeconds: weatherJson.utc_offset_seconds || 0,
       lastUpdated: new Date().toISOString(),
     };
