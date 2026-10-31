@@ -108,6 +108,7 @@ export default function App() {
       const controller = new AbortController();
       abortControllerRef.current = controller;
       const requestId = ++requestIdRef.current;
+      const timeoutId = setTimeout(() => controller.abort(), 20000);
 
       if (!weatherRef.current) setIsLoading(true);
       else setIsRefreshing(true);
@@ -122,10 +123,14 @@ export default function App() {
         setStoredDefaultCity(data.location);
       } catch (err: unknown) {
         if (requestId !== requestIdRef.current) return;
-        if (err instanceof Error && err.name === 'AbortError') return;
+        if (err instanceof Error && err.name === 'AbortError') {
+          setErrorMessage('The weather request took too long. Please check your connection and try again.');
+          return;
+        }
         console.error('Failed to load weather:', err);
         setErrorMessage(err instanceof Error ? err.message : 'Weather could not be loaded. Check your connection and try again.');
       } finally {
+        clearTimeout(timeoutId);
         if (requestId === requestIdRef.current) {
           setIsLoading(false);
           setIsRefreshing(false);
