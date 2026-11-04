@@ -639,6 +639,7 @@ export async function fetchWeatherData(
     }
 
     const weatherJson = await weatherRes.json();
+    const timezone = weatherJson.timezone || location.timezone || 'auto';
     let aqiJson: any = null;
 
     if (aqiRes && aqiRes.ok) {
@@ -732,7 +733,6 @@ export async function fetchWeatherData(
     const alerts = await extractSevereWeatherAlerts(weatherJson, aqiJson, location, signal);
 
     const currentJson = weatherJson.current ?? {};
-    const timezone = weatherJson.timezone || location.timezone || 'auto';
 
     const weatherData: WeatherData = {
       location: {
